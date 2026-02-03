@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cyber Triage Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+
+<h1 class="text-2xl font-bold mb-4">LLM Security Incident Dashboard</h1>
+
+<table class="min-w-full bg-white shadow rounded">
+  <thead>
+    <tr class="bg-gray-200">
+      <th class="p-2 text-left">Timestamp</th>
+      <th class="p-2">Severity</th>
+      <th class="p-2">Threat Score</th>
+      <th class="p-2 text-left">Indicators</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in incidents %}
+    <tr class="border-b">
+      <td class="p-2 text-sm">{{ i.timestamp }}</td>
+
+      <td class="p-2 font-semibold
+        {% if i.severity == 'High' %}text-red-600
+        {% elif i.severity == 'Medium' %}text-yellow-600
+        {% else %}text-green-600{% endif %}">
+        {{ i.severity }}
+      </td>
+
+      <td class="p-2 text-center">{{ i.threat_score }}</td>
+      <td class="p-2 text-sm">{{ ", ".join(i.indicators) }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</body>
+</html>
+
